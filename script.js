@@ -22,33 +22,75 @@ const btnOpenModal = document.querySelectorAll('.show-modal');
 const hiddenElements = document.querySelectorAll('.hidden');
 
 // Event listener to display the hidden elements on button click (Show modal #)
+// btnOpenModal.forEach(button => {
+//   button.addEventListener('click', () => {
+//     hiddenElements.forEach(element => {
+//       element.style.display = 'block';
+//     });
+//   });
+// });
+
+// We can also change visibility by adding or removing the hidden class, I have added this code to the other functions as well as doing it like this is probably more flexible as you can add or remove the hidden class and its styling to any element and not have to watch out for manipulating too many/ not enough elements that have the same class.
+
+// When using 'classList.add' or 'classList.remove', we do not need to add the dot for the class names specified, multiple class names can be added or removed at the same time by adding them in a comma-separated manner.
+
+// Event listener to display the hidden elements on button click (Show modal #)
 btnOpenModal.forEach(button => {
-  button.addEventListener('click', () => {
-    hiddenElements.forEach(element => {
-      element.style.display = 'block';
-    });
-  });
+  button.addEventListener('click', openModal);
 });
 
 // Event listener to hide the hidden elements on button click (X)
 btnCloseModal.addEventListener('click', () => {
-  hiddenElements.forEach(element => {
-    element.style.display = 'none';
-  });
+  hiddenElements.forEach(closeModal);
 });
 
 // Event listener to display the hidden elements on overlay click
 overlay.addEventListener('click', () => {
-  hiddenElements.forEach(element => {
-    element.style.display = 'none';
-  });
+  hiddenElements.forEach(closeModal);
 });
 
 // Event listener to hide the hidden elements Escape key press
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') {
-    hiddenElements.forEach(element => {
-      element.style.display = 'none';
-    });
+    hiddenElements.forEach(closeModal);
   }
 });
+
+// Experimental eventListener to hide the show-modal buttons on the page
+document.addEventListener('keydown', event => {
+  if (event.key === 'h') {
+    hideButtons;
+  }
+});
+
+// Experimental eventListener to reveal the show-modal buttons on the page
+document.addEventListener('keydown', event => {
+  if (event.key === 's') {
+    showButtons;
+  }
+});
+
+// In terms of DRY, we can define common functions as named functions and then just call them when we need to in other places in the code, this is useful for when we want to change something in the future efficiently.
+const closeModal = function () {
+  hiddenElements.forEach(element => {
+    element.classList.add('hidden');
+  });
+};
+
+const openModal = function () {
+  hiddenElements.forEach(element => {
+    element.classList.add('hidden');
+  });
+};
+
+const hideButtons = function () {
+  btnOpenModal.forEach(element => {
+    element.classList.add('hidden');
+  });
+};
+
+const showButtons = function () {
+  btnOpenModal.forEach(element => {
+    element.classList.remove('hidden');
+  });
+};
